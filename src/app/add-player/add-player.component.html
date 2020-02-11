@@ -1,0 +1,44 @@
+<form (submit)="addPlayer($event)">
+  <label class="">Player's Name</label>
+  <input type="text" [(ngModel)]="inputName" name="inputName">
+
+  <label class="">Position</label>
+  <select [(ngModel)]="inputPosition" name="inputPosition">
+    <option *ngFor="let position of playesPositionOptions" value="{{ position.acronym }}">{{ position.name }}</option>
+  </select>
+
+  <label class="">Country</label>
+  <select [(ngModel)]="inputCountry" name="inputCountry">
+    <option *ngFor="let country of playesCountryOptions" value="{{ country.acronym }}">{{ country.name }}</option>
+  </select>
+
+  <h6>Preview</h6>
+  <div class="table-responsive">
+    <table class="table">
+      <tr>
+        <td class="nameCell">{{ inputName }}</td>
+        <td>{{ inputPosition }}</td>
+        <td><i class="flag-icon flag-icon-{{ inputCountry }}"></i></td>
+        <td><button class="btn btn-primary">Sent</button></td>
+      </tr>
+    </table>
+  </div>
+</form>
+
+
+<div class="table-responsive">
+  <table class="table">
+    <tr *ngFor="let playerOnTeam of players; let i=index" class="{{ status.value }}">
+      <td class="nameCell"> {{ playerOnTeam.name }} </td>
+      <td> {{ playerOnTeam.position }} </td>
+      <td><i class="flag-icon flag-icon-{{ playerOnTeam.country }}"></i></td>
+      <td><select #status (change)='0'>
+          <option value="alert-success">Starter</option>
+          <option value="alert-warning">Second</option>
+          <option value="alert-danger">Injuried</option>
+        </select>
+      </td>
+      <td><i (click)="deletePlayer(i)" class="fa fa-trash"></i></td>
+    </tr>
+  </table>
+</div>
