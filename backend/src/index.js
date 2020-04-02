@@ -15,29 +15,25 @@ app.set('port', process.env.port || port);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-const db = mysql.createConnection({
+const connection = mysql.createConnection({
     host: '192.168.0.19',
     user: 'remoteConnectionMAC',
     password: 'Remote@123',
     database: 'teamapp'
 });
 
-db.connect((err) => {
-    if (err) {
-        throw err;
-    }
+connection.connect((err) => {
+    if (err) throw err;
 
     console.log('Connected to database');
 
     app.listen(port, (err) => {
-        if (err) {
-            throw err;
-        }
+        if (err)  throw err;
 
         console.log(`Server running on port: ${port}`);
     });
 
 });
 
-global.db = db;
+global.connection = connection;
 

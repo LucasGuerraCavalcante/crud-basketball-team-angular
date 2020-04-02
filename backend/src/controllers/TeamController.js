@@ -1,54 +1,47 @@
 
 module.exports = {
 
-    async index(req, resp) {
+    index: (req, resp) => {
 
-        let query = 'SELECT * FROM team;'; 
+        const sql = 'SELECT * FROM team;'; 
 
-        db.query(query, (err, result) => {
+        connection.query(sql, function (err, result) {
 
-            if (err) {
-                return err;
-            }
+            if (err) throw err;
 
             return resp.json(result);
 
-        }); 
+        });
     },
 
-    create(req, resp) {
+    create: (req, resp) => {
 
-        console.log(req.body)
+        const name = req.body.name;
+        const position = req.body.position;
+        const country = req.body.country;
+        const role = req.body.role;
+        const status = "active";
 
-        var name = req.body.name;
-        var position = req.body.position;
-        var country = req.body.country;
-        var role = req.body.role;
-        var status = "active";
+        const sql = `INSERT INTO team (name, position, country, role, status) VALUES ("${name}","${position}","${country}","${role}","${status}");`; 
 
-        var sql = `INSERT INTO team (name, position, country, role, status) VALUES ("${name}","${position}","${country}","${role}","${status}");`; 
+        connection.query(sql, function (err, result) {
 
-        db.query(sql, (err, result) => {
-
-            if (err) {
-                return err;
-            }
+            if (err) throw err;
 
             return resp.json(result);
 
         });
     }, 
 
-    async delete(req, resp) {
+    delete: (req, resp) =>  {
 
-        var matricula = req.query.matricula;
+        const id = req.body.id;
 
-        let query = `DELETE FROM funcionarios WHERE matricula = "${matricula}" LIMIT 1;`;  
+        const sql = `DELETE FROM team WHERE id = ${id} LIMIT 1;`;  
 
-        db.query(query, (err, result) => {
-            if (err) {
-                return err;
-            }
+        connection.query(sql, function (err, result) {
+
+            if (err) throw err;
 
             return resp.json(result);
         });

@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.get('/', TeamController.index);
 router.post('/', TeamController.create);
-// routes.delete('/team', TeamController.delete)
+router.delete('/', TeamController.delete);
 
 module.exports = router;
