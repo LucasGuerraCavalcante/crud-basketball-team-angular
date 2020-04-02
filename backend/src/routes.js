@@ -1,8 +1,10 @@
 const express = require('express');
-const TeamControler = require('./controllers/TeamControler');
+const TeamController = require('./controllers/TeamController');
 
-const routes = express.Router();
+const router = express.Router();
 
-routes.get('/ongs', TeamControler.index)
+router.get('/', TeamController.index);
+router.post('/', TeamController.create);
+// routes.delete('/team', TeamController.delete)
 
-module.exports = routes;
+module.exports = router;

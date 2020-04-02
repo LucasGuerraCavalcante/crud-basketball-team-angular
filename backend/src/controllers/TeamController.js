@@ -1,44 +1,57 @@
-const connection = require('../database/connection');
 
 module.exports = {
 
-    async create(req, resp) {
+    async index(req, resp) {
 
-        const ong_id = req.headers.authorization;
-        // console.log(ong_id)
+        let query = 'SELECT * FROM team;'; 
 
-        const { 
-            title, 
-            description, 
-            value, } = req.body;
+        db.query(query, (err, result) => {
 
-        const [id] = await connection('incidents').insert({
-            title, 
-            ong_id,
-            description, 
-            value,
-        })
+            if (err) {
+                return err;
+            }
 
-        return resp.json({ id });
+            return resp.json(result);
+
+        }); 
+    },
+
+    create(req, resp) {
+
+        console.log(req.body)
+
+        var name = req.body.name;
+        var position = req.body.position;
+        var country = req.body.country;
+        var role = req.body.role;
+        var status = "active";
+
+        var sql = `INSERT INTO team (name, position, country, role, status) VALUES ("${name}","${position}","${country}","${role}","${status}");`; 
+
+        db.query(sql, (err, result) => {
+
+            if (err) {
+                return err;
+            }
+
+            return resp.json(result);
+
+        });
     }, 
 
     async delete(req, resp) {
 
-        const { id } = req.params;
-        const ong_id = req.headers.authorization;
+        var matricula = req.query.matricula;
 
-        const incident = await connection('incidents')
-            .where('id', id)
-            .select('ong_id')
-            .first();
+        let query = `DELETE FROM funcionarios WHERE matricula = "${matricula}" LIMIT 1;`;  
 
-        if (incident.ong_id != ong_id) {
-            return resp.status(401).json({ error: 'Operation not permitted.' })
-        }
+        db.query(query, (err, result) => {
+            if (err) {
+                return err;
+            }
 
-        await connection('incidents').where('id', id).delete();
-
-        return resp.status(204).send();
+            return resp.json(result);
+        });
     },
 
 };

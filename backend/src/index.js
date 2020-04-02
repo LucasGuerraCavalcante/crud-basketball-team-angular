@@ -2,13 +2,18 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
-// const routes = require('./routes')
+const router = require('./routes')
 
 const app = express();
 const port = 3333;
 
 app.use(express.json());
-// app.use(routes);
+app.use(router);
+
+app.set('port', process.env.port || port);
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 const db = mysql.createConnection({
     host: '192.168.0.19',
@@ -21,19 +26,18 @@ db.connect((err) => {
     if (err) {
         throw err;
     }
+
     console.log('Connected to database');
+
+    app.listen(port, (err) => {
+        if (err) {
+            throw err;
+        }
+
+        console.log(`Server running on port: ${port}`);
+    });
+
 });
 
 global.db = db;
 
-app.set('port', process.env.port || port);
-
-app.use(bodyParser.urlencoded({
-    extended: false
-}));
-
-app.use(bodyParser.json())
-
-app.listen(port, () => {
-    console.log(`Server running on port: ${port}`);
-});
