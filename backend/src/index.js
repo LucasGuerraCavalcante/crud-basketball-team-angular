@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
+const cors = require('cors')
 
 const router = require('./routes')
 
@@ -14,6 +15,13 @@ app.set('port', process.env.port || port);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+const corsOptions = {
+    origin: 'http://example.com',
+    optionsSuccessStatus: 200 
+}
+
+app.use(cors(corsOptions))
 
 const connection = mysql.createConnection({
     host: '192.168.0.19',
