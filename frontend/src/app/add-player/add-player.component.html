@@ -35,62 +35,22 @@
       <th>Delete</th>
     </tr>
     <tr *ngFor="let playerOnTeam of players; let i=index" class="{{ status.value }}">
-      <td class="nameCell"> {{ playerOnTeam.name }} </td>
+      <td class="nameCell"> {{ playerOnTeam.name }}</td>
       <td> {{ playerOnTeam.position }} </td>
       <td><i class="flag-icon flag-icon-{{ playerOnTeam.country }}"></i></td>
       <td><select #status (change)='0'>
-          <option value="alert-success">Starter</option>
-          <option value="alert-warning">Reserve</option>
-          <option value="alert-danger">Injuried</option>
+          <option value="alert-success">Active</option>
+          <option value="alert-danger">Injured</option>
+          <option value="alert-secondary">Unavailable</option>
         </select>
       </td>
-      <td><i (click)="deletePlayer(i)" class="fa fa-trash"></i></td>
+      <td><a ng-click="deletePlayer(playerOnTeam.id)" class="fa fa-trash"></a></td>
     </tr>
   </table>
 
   <h5>STARTERS: 4</h5>
-  <table class="table">
-    <tr>
-      <th>Name</th>
-      <th>Position</th>
-      <th>Country</th>
-      <th>Status</th>
-      <th>Delete</th>
-    </tr>
-    <tr *ngFor="let playerOnTeam of players; let i=index" class="{{ status.value }}">
-      <td class="nameCell"> {{ playerOnTeam.name }} </td>
-      <td> {{ playerOnTeam.position }} </td>
-      <td><i class="flag-icon flag-icon-{{ playerOnTeam.country }}"></i></td>
-      <td><select #status (change)='0'>
-          <option value="alert-success">Starter</option>
-          <option value="alert-warning">Reserve</option>
-          <option value="alert-danger">Injuried</option>
-        </select>
-      </td>
-      <td><i (click)="deletePlayer(i)" class="fa fa-trash"></i></td>
-    </tr>
-  </table>
+  
 
   <h5>RESERVES: 7</h5>
-  <table class="table">
-    <tr>
-      <th>Name</th>
-      <th>Position</th>
-      <th>Country</th>
-      <th>Status</th>
-      <th>Delete</th>
-    </tr>
-    <tr *ngFor="let playerOnTeam of players; let i=index" class="{{ status.value }}">
-      <td class="nameCell"> {{ playerOnTeam.name }} </td>
-      <td> {{ playerOnTeam.position }} </td>
-      <td><i class="flag-icon flag-icon-{{ playerOnTeam.country }}"></i></td>
-      <td><select #status (change)='0'>
-          <option value="alert-success">Starter</option>
-          <option value="alert-warning">Reserve</option>
-          <option value="alert-danger">Injuried</option>
-        </select>
-      </td>
-      <td><i (click)="deletePlayer(i)" class="fa fa-trash"></i></td>
-    </tr>
-  </table>
+  
 </div>

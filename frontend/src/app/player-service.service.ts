@@ -19,6 +19,7 @@ export class PlayerServiceService {
   }
 
   deletePlayer(player: any) {
+    console.log(player)
     return this.http.request('delete', 'http://localhost:3333/', player);
   }
 }

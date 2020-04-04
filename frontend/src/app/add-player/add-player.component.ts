@@ -40,13 +40,21 @@ export class AddPlayerComponent implements OnInit {
     {"name": "Shooting guard","acronym": "SG"},    
     {"name": "Small forward","acronym": "SF"},    
     {"name": "Center","acronym": "C"}
-  ]
+  ];
 
-  playesRoleOptions: any[] = [ "Captain", "Starter", "Reserver" ]
+  playesRoleOptions: any[] = [ "Captain", "Starter", "Reserver" ];
+
+  playesStatusOptions: any[] = [ "Active", "Injured", "Unavailable" ];
 
   constructor(private playerService: PlayerServiceService,) { 
     this.newPlayer = '';
     this.players = [];
+  }
+
+  show() {
+    console.log(this.players)
+    this.playerService.getAllPlayers()
+      .subscribe(response => this.players = <any> response)
   }
 
   addPlayer(event) {
@@ -61,6 +69,7 @@ export class AddPlayerComponent implements OnInit {
       .subscribe(() => {
         this.players.push(this.player);
         this.newPlayer = '';
+        this.show();
         event.preventDefault();
     },
       errorResponse => {
@@ -77,9 +86,12 @@ export class AddPlayerComponent implements OnInit {
   };
 
   deletePlayer(index) {
+
+    console.log(index)
+
     this.playerService.deletePlayer(index)
       .subscribe(() => {
-        this.players.splice(index, 1);
+        this.show();
   },
     errorResponse => {
 
@@ -95,6 +107,7 @@ export class AddPlayerComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.show();
   }
 
 }
