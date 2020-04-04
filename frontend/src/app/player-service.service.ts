@@ -1,27 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable'
 import { HttpClient } from '@angular/common/http'
 
-export interface Player {
-  name: string
-}
+@Injectable({
+  providedIn: 'root'
+})
 
-@Injectable(
-
-)
 export class PlayerServiceService {
 
   constructor(private http: HttpClient) { }
 
-  getAllPlayers(): Observable<Player[]> {
-    return this.http.get<Player[]>('http://localhost:3333')
+  getAllPlayers() {
+    return this.http.get('http://localhost:3333');
   }
 
-  insertPlayer(Player: Player): Observable<Player> {
-    return this.http.post<Player>('http://localhost:3333/', Player)
+  insertPlayer(player: any){
+    console.log(player)
+    return this.http.post('http://localhost:3333/', player);
   }
 
-  deletePlayer(id: number) {
-    return this.http.delete('http://localhost:3333/' + id)
+  deletePlayer(player: any) {
+    return this.http.request('delete', 'http://localhost:3333/', player);
   }
 }

@@ -15,8 +15,12 @@
     <option *ngFor="let country of playesCountryOptions" value="{{ country.acronym }}">{{ country.name }}</option>
   </select>
 
-  <button>Sent</button>
+  <label class="">Role</label>
+  <select [(ngModel)]="inputRole" name="inputRole">
+    <option *ngFor="let role of playesRoleOptions" value="{{ role }}">{{ role }}</option>
+  </select>
 
+  <button>Sent</button>
 </form>
 
 <div class="table-responsive">

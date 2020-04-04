@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PlayerServiceService } from '../player-service.service';
 
 @Component({
   selector: 'app-add-player',
@@ -7,12 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddPlayerComponent implements OnInit {
 
-  inputName: string; inputCountry: string;  inputPosition: string; 
+  inputName: string; inputCountry: string;  inputPosition: string;  inputRole: string;
 
   player: {
     name: string,  
     position: string,
-    country: string
+    country: string,
+    role: string
   };
 
   newPlayer: any;
@@ -40,7 +42,9 @@ export class AddPlayerComponent implements OnInit {
     {"name": "Center","acronym": "C"}
   ]
 
-  constructor() { 
+  playesRoleOptions: any[] = [ "Captain", "Starter", "Reserver" ]
+
+  constructor(private playerService: PlayerServiceService,) { 
     this.newPlayer = '';
     this.players = [];
   }
@@ -49,15 +53,45 @@ export class AddPlayerComponent implements OnInit {
     this.player = {
       name: this.inputName,
       position: this.inputPosition,
-      country: this.inputCountry
+      country: this.inputCountry,
+      role: this.inputRole
     }
-    this.players.push(this.player);
-    this.newPlayer = '';
-    event.preventDefault();
-  }
+
+    this.playerService.insertPlayer(this.player)
+      .subscribe(() => {
+        this.players.push(this.player);
+        this.newPlayer = '';
+        event.preventDefault();
+    },
+      errorResponse => {
+
+        let msg = 'Unexpected Error';
+
+        if(errorResponse.error.message) {
+          msg = errorResponse.error.message;
+        }
+
+        console.log(msg)
+
+      });
+  };
 
   deletePlayer(index) {
-    this.players.splice(index, 1);
+    this.playerService.deletePlayer(index)
+      .subscribe(() => {
+        this.players.splice(index, 1);
+  },
+    errorResponse => {
+
+      let msg = 'Unexpected Error';
+
+      if(errorResponse.error.message) {
+        msg = errorResponse.error.message;
+      }
+
+      console.log(msg)
+
+    });
   }
 
   ngOnInit() {
