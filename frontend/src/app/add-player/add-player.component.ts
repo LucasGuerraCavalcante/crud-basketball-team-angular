@@ -20,6 +20,8 @@ export class AddPlayerComponent implements OnInit {
   newPlayer: any;
   players: any = [];
 
+  update: boolean;
+
   playesCountryOptions: any[] = [
     {"name": "United States","acronym": "us"},
     {"name": "Spain","acronym": "es"},    
@@ -51,8 +53,17 @@ export class AddPlayerComponent implements OnInit {
     this.players = [];
   }
 
+  updateArea(){
+    if (this.update == false){
+      this.update = true;
+    } else {
+      this.update = false;;
+    }
+
+  }
+
   show() {
-    console.log(this.players)
+    // console.log(this.players)
     this.playerService.getAllPlayers()
       .subscribe(response => this.players = <any> response)
   }
@@ -67,7 +78,6 @@ export class AddPlayerComponent implements OnInit {
 
     this.playerService.insertPlayer(this.player)
       .subscribe(() => {
-        this.players.push(this.player);
         this.newPlayer = '';
         this.show();
         event.preventDefault();
@@ -85,11 +95,11 @@ export class AddPlayerComponent implements OnInit {
       });
   };
 
-  deletePlayer(index) {
+  deletePlayer(player) {
 
-    console.log(index)
+    // console.log(player)
 
-    this.playerService.deletePlayer(index)
+    this.playerService.deletePlayer(player)
       .subscribe(() => {
         this.show();
   },
@@ -108,6 +118,7 @@ export class AddPlayerComponent implements OnInit {
 
   ngOnInit() {
     this.show();
+    this.update = false;
   }
 
 }

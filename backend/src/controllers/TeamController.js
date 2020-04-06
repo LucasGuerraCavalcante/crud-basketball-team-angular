@@ -35,7 +35,11 @@ module.exports = {
 
     delete: (req, resp) =>  {
 
+        console.log(req)
+
         const id = req.body.id;
+
+        console.log(id)
 
         const sql = `DELETE FROM team WHERE id = ${id} LIMIT 1;`;  
 

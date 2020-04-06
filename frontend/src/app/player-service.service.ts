@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders  } from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +14,22 @@ export class PlayerServiceService {
   }
 
   insertPlayer(player: any){
-    console.log(player)
+    // console.log(player)
     return this.http.post('http://localhost:3333/', player);
   }
 
   deletePlayer(player: any) {
-    console.log(player)
-    return this.http.request('delete', 'http://localhost:3333/', player);
+    // console.log(player)
+
+    const options = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+      body: {
+        id: player.id,
+      },
+    };
+
+    return this.http.delete('http://localhost:3333/', options);
   }
 }

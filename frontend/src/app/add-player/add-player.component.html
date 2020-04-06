@@ -5,14 +5,14 @@
   <label class="">Player's Name</label>
   <input type="text" [(ngModel)]="inputName" name="inputName">
 
-  <label class="">Position</label>
-  <select [(ngModel)]="inputPosition" name="inputPosition">
-    <option *ngFor="let position of playesPositionOptions" value="{{ position.acronym }}">{{ position.name }}</option>
-  </select>
-
   <label class="">Country</label>
   <select [(ngModel)]="inputCountry" name="inputCountry">
     <option *ngFor="let country of playesCountryOptions" value="{{ country.acronym }}">{{ country.name }}</option>
+  </select>
+
+  <label class="">Position</label>
+  <select [(ngModel)]="inputPosition" name="inputPosition">
+    <option *ngFor="let position of playesPositionOptions" value="{{ position.acronym }}">{{ position.name }}</option>
   </select>
 
   <label class="">Role</label>
@@ -23,34 +23,67 @@
   <button>Sent</button>
 </form>
 
+<div>
+  <button (click)="updateArea()">Update Team</button>
+</div>
+
 <div class="table-responsive">
 
-  <h5>CAPTAIN: 1</h5>
-  <table class="table">
-    <tr>
-      <th>Name</th>
-      <th>Position</th>
-      <th>Country</th>
-      <th>Status</th>
-      <th>Delete</th>
-    </tr>
-    <tr *ngFor="let playerOnTeam of players; let i=index" class="{{ status.value }}">
-      <td class="nameCell"> {{ playerOnTeam.name }}</td>
-      <td> {{ playerOnTeam.position }} </td>
-      <td><i class="flag-icon flag-icon-{{ playerOnTeam.country }}"></i></td>
-      <td><select #status (change)='0'>
-          <option value="alert-success">Active</option>
-          <option value="alert-danger">Injured</option>
-          <option value="alert-secondary">Unavailable</option>
-        </select>
-      </td>
-      <td><a ng-click="deletePlayer(playerOnTeam.id)" class="fa fa-trash"></a></td>
-    </tr>
-  </table>
+  <p>A regular basketball team has 1 captain 4 starters and 7 reservers</p>
 
-  <h5>STARTERS: 4</h5>
-  
+  <form>
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Country</th>
+        <th>Position</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Delete</th>
+        <th>Update Submit</th>
+      </tr>
 
-  <h5>RESERVES: 7</h5>
+      <tr *ngFor="let playerOnTeam of players; let i=index" class="{{ status.value }}">
+        <td class="nameCell"> 
+          <span *ngIf="!update">{{ playerOnTeam.name }}</span>
+          <input *ngIf="update" type="text" placeholder="{{ playerOnTeam.name }}">
+        </td>
+        <td>
+          <i *ngIf="!update" class="flag-icon flag-icon-{{ playerOnTeam.country }}"></i>
+          <select *ngIf="update">
+            <option value="" disabled selected>{{ playerOnTeam.country }}</option>
+            <option *ngFor="let country of playesCountryOptions" value="{{ country.acronym }}">{{ country.name }}</option>
+          </select>
+        </td>
+        <td>  
+          <span *ngIf="!update">{{ playerOnTeam.position }}</span>
+          <select *ngIf="update">
+            <option value="" disabled selected>{{ playerOnTeam.position }}</option>
+            <option *ngFor="let position of playesPositionOptions" value="{{ position.acronym }}">{{ position.name }}</option>
+          </select>
+        </td>
+        <td >  
+          <span *ngIf="!update">{{ playerOnTeam.role }}</span>
+          <select *ngIf="update" selected="{{ playerOnTeam.role }}">
+            <option value="" disabled selected>{{ playerOnTeam.role }}</option>
+            <option *ngFor="let role of playesRoleOptions" value="{{ role }}">{{ role }}</option>
+          </select>
+        </td>
+        <td> 
+          <select #status (change)='0'>
+            <option value="alert-success">Active</option>
+            <option value="alert-danger">Injured</option>
+            <option value="alert-secondary">Unavailable</option>
+          </select>
+        </td>
+        <td><a (click)="deletePlayer(playerOnTeam)" class="fa fa-trash"></a></td>
+        <td *ngIf="!update"><a ng-click="deletePlayer(playerOnTeam)" class="fa fa-ban"></a></td>
+        <td *ngIf="update"><a ng-click="deletePlayer(playerOnTeam)" class="fa fa-wrench"></a></td>
+      </tr>
+
+    </table>
+  </form>
+
+  <div>. </div>
   
 </div>
