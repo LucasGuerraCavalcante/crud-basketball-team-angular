@@ -9,7 +9,7 @@ import { PlayerServiceService } from '../player-service.service';
 export class AddPlayerComponent implements OnInit {
 
   inputName: string; inputCountry: string;  inputPosition: string;  inputRole: string;
-  updateName: string; updateCountry: string;  updatePosition: string;  updateRole: string; updateStatus: string;
+  id: number; updateName: string; updateCountry: string;  updatePosition: string;  updateRole: string; updateStatus: string;
 
   player: {
     name: string,  
@@ -115,10 +115,12 @@ export class AddPlayerComponent implements OnInit {
     });
   };
 
-  updatePlayer(id) {
+  updatePlayer(event) {
+
+    this.id = this.editPlayer.id
 
     this.editPlayer = {
-      id: id,
+      id: this.id,
       name: this.updateName,  
       position: this.updatePosition,
       country: this.updateCountry,
@@ -130,6 +132,7 @@ export class AddPlayerComponent implements OnInit {
 
     this.playerService.putPlayer(this.editPlayer)
       .subscribe(() => {
+        this.update = false;
         this.show();
         event.preventDefault();
   },
@@ -153,6 +156,11 @@ export class AddPlayerComponent implements OnInit {
     } else {
       this.update = true;
       this.editPlayer = player;
+      this.updateName = this.editPlayer.name 
+      this.updatePosition = this.editPlayer.position 
+      this.updateCountry = this.editPlayer.country 
+      this.updateRole = this.editPlayer.role 
+      this.updateStatus = this.editPlayer.status 
       // console.log(this.editPlayer)
     }
   };

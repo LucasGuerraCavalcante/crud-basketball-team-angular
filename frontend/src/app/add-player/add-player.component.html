@@ -67,7 +67,7 @@
   </table>
 
   <div *ngIf="update">
-    <form>
+    <form (submit)="updatePlayer($event)">
       <table class="table">
         <tr>
           <th>Name</th>
@@ -81,28 +81,28 @@
 
         <tr class="{{ status.value }}">
           <td> 
-            <input type="text" value="{{ editPlayer.name }}">
+            <input type="text" value="{{ updateName }}" [(ngModel)]="updateName" name="updateName">
           </td>
           <td>
-            <select>
-              <option value="{{ editPlayer.country }}" disabled selected>{{ editPlayer.country }}</option>
+            <select [(ngModel)]="updateCountry" name="updateCountry">
+              <option value="{{ updateCountry }}" disabled selected>{{ updateCountry }}</option> 
               <option *ngFor="let country of playesCountryOptions" value="{{ country.acronym }}">{{ country.name }}</option>
             </select>
           </td>
           <td>  
-            <select>
-              <option value="{{ editPlayer.position }}" disabled selected>{{ editPlayer.position }}</option>
+            <select [(ngModel)]="updatePosition" name="updatePosition">
+              <option value="{{ updatePosition }}" disabled selected>{{ updatePosition }}</option> 
               <option *ngFor="let position of playesPositionOptions" value="{{ position.acronym }}">{{ position.name }}</option>
             </select>
           </td>
           <td >  
-            <select>
-              <option value="{{ editPlayer.role }}" disabled selected>{{ editPlayer.role }}</option>
+            <select [(ngModel)]="updateRole" name="updateRole">
+              <option value="{{ updateRole }}" disabled selected>{{ updateRole }}</option> 
               <option *ngFor="let role of playesRoleOptions" value="{{ role }}">{{ role }}</option>
             </select>
           </td>
           <td> 
-            <select #status (change)='0'>
+            <select #status (change)='0' [(ngModel)]="updateStatus" name="updateStatus">
               <option value="alert-success">Active</option>
               <option value="alert-danger">Injured</option>
               <option value="alert-secondary">Unavailable</option>
@@ -110,7 +110,7 @@
           </td>
           
           <td><a (click)="deletePlayer(editPlayer.id)" class="fa fa-trash"></a></td>
-          <td><a (click)="updatePlayer(editPlayer.id)" class="fa fa-location-arrow"></a></td>
+          <td><button type="submit" class="fa fa-location-arrow"></button></td>
         </tr>
       </table>
     </form>
