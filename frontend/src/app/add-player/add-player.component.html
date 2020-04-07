@@ -31,45 +31,44 @@
 
   <p>A regular basketball team has 1 captain 4 starters and 7 reservers</p>
 
-    <table class="table">
-      <tr>
-        <th>Name</th>
-        <th>Country</th>
-        <th>Position</th>
-        <th>Role</th>
-        <th>Status</th>
-        <th>Delete</th>
-        <th>Edit</th>
-      </tr>
+  <table class="table">
+    <tr>
+      <th>Name</th>
+      <th>Country</th>
+      <th>Position</th>
+      <th>Role</th>
+      <th>Status</th>
+      <th>Delete</th>
+      <th>Edit</th>
+    </tr>
 
-      <tr *ngFor="let playerOnTeam of players; let i=index" class="{{ status.value }}">
-        <td> 
-          <span>{{ playerOnTeam.name }}</span>
-        </td>
-        <td>
-          <i class="flag-icon flag-icon-{{ playerOnTeam.country }}"></i>
-        </td>
-        <td>  
-          <span>{{ playerOnTeam.position }}</span>
-        </td>
-        <td>  
-          <span>{{ playerOnTeam.role }}</span>
-        </td>
-        <td> 
-          <select #status (change)='0'>
-            <option value="alert-success">Active</option>
-            <option value="alert-danger">Injured</option>
-            <option value="alert-secondary">Unavailable</option>
-          </select>
-        </td>
-        
-        <td><a (click)="deletePlayer(playerOnTeam)" class="fa fa-trash"></a></td>
+    <tr *ngFor="let playerOnTeam of players; let i=index" class="{{ status.value }}">
+      <td> 
+        <span>{{ playerOnTeam.name }}</span>
+      </td>
+      <td>
+        <i class="flag-icon flag-icon-{{ playerOnTeam.country }}"></i>
+      </td>
+      <td>  
+        <span>{{ playerOnTeam.position }}</span>
+      </td>
+      <td>  
+        <span>{{ playerOnTeam.role }}</span>
+      </td>
+      <td> 
+        <select #status (change)='0'>
+          <option value="alert-success">Active</option>
+          <option value="alert-danger">Injured</option>
+          <option value="alert-secondary">Unavailable</option>
+        </select>
+      </td>
+      
+      <td><a (click)="deletePlayer(playerOnTeam)" class="fa fa-trash"></a></td>
 
-        <td><a class="fa fa-wrench"></a></td>
-      </tr>
+      <td><a class="fa fa-wrench"></a></td>
+    </tr>
 
-    </table>
-  </form>
+  </table>
 
   <div>. </div>
   
