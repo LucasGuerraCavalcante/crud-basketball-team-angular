@@ -18,6 +18,11 @@ export class PlayerServiceService {
     return this.http.post('http://localhost:3333/', player);
   }
 
+  putPlayer(player: any){
+    // console.log(player)
+    return this.http.put('http://localhost:3333/', player);
+  }
+
   deletePlayer(player: any) {
     // console.log(player)
 

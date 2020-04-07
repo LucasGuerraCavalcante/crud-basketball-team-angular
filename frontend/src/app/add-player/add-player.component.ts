@@ -17,10 +17,7 @@ export class AddPlayerComponent implements OnInit {
     role: string
   };
 
-  newPlayer: any;
   players: any = [];
-
-  update: boolean;
 
   playesCountryOptions: any[] = [
     {"name": "United States","acronym": "us"},
@@ -49,17 +46,7 @@ export class AddPlayerComponent implements OnInit {
   playesStatusOptions: any[] = [ "Active", "Injured", "Unavailable" ];
 
   constructor(private playerService: PlayerServiceService,) { 
-    this.newPlayer = '';
     this.players = [];
-  }
-
-  updateArea(){
-    if (this.update == false){
-      this.update = true;
-    } else {
-      this.update = false;;
-    }
-
   }
 
   show() {
@@ -78,7 +65,6 @@ export class AddPlayerComponent implements OnInit {
 
     this.playerService.insertPlayer(this.player)
       .subscribe(() => {
-        this.newPlayer = '';
         this.show();
         event.preventDefault();
     },
@@ -116,9 +102,28 @@ export class AddPlayerComponent implements OnInit {
     });
   }
 
+  updatePlayer(a) {
+
+    this.playerService.putPlayer(a)
+      .subscribe(() => {
+        this.show();
+        event.preventDefault();
+  },
+    errorResponse => {
+
+      let msg = 'Unexpected Error';
+
+      if(errorResponse.error.message) {
+        msg = errorResponse.error.message;
+      }
+
+      console.log(msg)
+
+    });
+  }
+
   ngOnInit() {
     this.show();
-    this.update = false;
   }
 
 }
