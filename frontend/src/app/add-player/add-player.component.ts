@@ -9,6 +9,7 @@ import { PlayerServiceService } from '../player-service.service';
 export class AddPlayerComponent implements OnInit {
 
   inputName: string; inputCountry: string;  inputPosition: string;  inputRole: string;
+  updateName: string; updateCountry: string;  updatePosition: string;  updateRole: string; updateStatus: string;
 
   player: {
     name: string,  
@@ -17,7 +18,18 @@ export class AddPlayerComponent implements OnInit {
     role: string
   };
 
+  editPlayer: {
+    id: number,
+    name: string,  
+    position: string,
+    country: string,
+    role: string,
+    status: string
+  };
+
   players: any = [];
+
+  update: boolean;
 
   playesCountryOptions: any[] = [
     {"name": "United States","acronym": "us"},
@@ -47,13 +59,13 @@ export class AddPlayerComponent implements OnInit {
 
   constructor(private playerService: PlayerServiceService,) { 
     this.players = [];
-  }
+  };
 
   show() {
     // console.log(this.players)
     this.playerService.getAllPlayers()
       .subscribe(response => this.players = <any> response)
-  }
+  };
 
   addPlayer(event) {
     this.player = {
@@ -61,7 +73,7 @@ export class AddPlayerComponent implements OnInit {
       position: this.inputPosition,
       country: this.inputCountry,
       role: this.inputRole
-    }
+    };
 
     this.playerService.insertPlayer(this.player)
       .subscribe(() => {
@@ -81,12 +93,13 @@ export class AddPlayerComponent implements OnInit {
       });
   };
 
-  deletePlayer(player) {
+  deletePlayer(id) {
 
     // console.log(player)
 
-    this.playerService.deletePlayer(player)
+    this.playerService.deletePlayer(id)
       .subscribe(() => {
+        this.update = false;
         this.show();
   },
     errorResponse => {
@@ -100,11 +113,22 @@ export class AddPlayerComponent implements OnInit {
       console.log(msg)
 
     });
-  }
+  };
 
-  updatePlayer(a) {
+  updatePlayer(id) {
 
-    this.playerService.putPlayer(a)
+    this.editPlayer = {
+      id: id,
+      name: this.updateName,  
+      position: this.updatePosition,
+      country: this.updateCountry,
+      role: this.updateRole,
+      status: this.updateStatus
+    };
+
+    console.log(this.editPlayer)
+
+    this.playerService.putPlayer(this.editPlayer)
       .subscribe(() => {
         this.show();
         event.preventDefault();
@@ -120,10 +144,22 @@ export class AddPlayerComponent implements OnInit {
       console.log(msg)
 
     });
-  }
+  };
+
+  updateArea(player){
+    if (this.update == true){
+      this.update = false;
+
+    } else {
+      this.update = true;
+      this.editPlayer = player;
+      // console.log(this.editPlayer)
+    }
+  };
 
   ngOnInit() {
     this.show();
-  }
+    this.update = false;
+  };
 
 }

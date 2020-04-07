@@ -23,15 +23,11 @@
   <button type="submit">Sent</button>
 </form>
 
-<div>
-  <button (click)="updateArea()">Update Team</button>
-</div>
-
 <div class="table-responsive">
 
   <p>A regular basketball team has 1 captain 4 starters and 7 reservers</p>
 
-  <table class="table">
+  <table *ngIf="!update" class="table">
     <tr>
       <th>Name</th>
       <th>Country</th>
@@ -63,12 +59,63 @@
         </select>
       </td>
       
-      <td><a (click)="deletePlayer(playerOnTeam)" class="fa fa-trash"></a></td>
+      <td><a (click)="deletePlayer(playerOnTeam.id)" class="fa fa-trash"></a></td>
 
-      <td><a class="fa fa-wrench"></a></td>
+      <td><a (click)="updateArea(playerOnTeam)" class="fa fa-pencil"></a></td>
     </tr>
 
   </table>
+
+  <div *ngIf="update">
+    <form>
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Country</th>
+          <th>Position</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Delete</th>
+          <th>Submit</th>
+        </tr>
+
+        <tr class="{{ status.value }}">
+          <td> 
+            <input type="text" value="{{ editPlayer.name }}">
+          </td>
+          <td>
+            <select>
+              <option value="{{ editPlayer.country }}" disabled selected>{{ editPlayer.country }}</option>
+              <option *ngFor="let country of playesCountryOptions" value="{{ country.acronym }}">{{ country.name }}</option>
+            </select>
+          </td>
+          <td>  
+            <select>
+              <option value="{{ editPlayer.position }}" disabled selected>{{ editPlayer.position }}</option>
+              <option *ngFor="let position of playesPositionOptions" value="{{ position.acronym }}">{{ position.name }}</option>
+            </select>
+          </td>
+          <td >  
+            <select>
+              <option value="{{ editPlayer.role }}" disabled selected>{{ editPlayer.role }}</option>
+              <option *ngFor="let role of playesRoleOptions" value="{{ role }}">{{ role }}</option>
+            </select>
+          </td>
+          <td> 
+            <select #status (change)='0'>
+              <option value="alert-success">Active</option>
+              <option value="alert-danger">Injured</option>
+              <option value="alert-secondary">Unavailable</option>
+            </select>
+          </td>
+          
+          <td><a (click)="deletePlayer(editPlayer.id)" class="fa fa-trash"></a></td>
+          <td><a (click)="updatePlayer(editPlayer.id)" class="fa fa-location-arrow"></a></td>
+        </tr>
+      </table>
+    </form>
+    <a (click)="updateArea(editPlayer)" class="fa fa-arrow-left">Return</a>
+  </div>
 
   <div>. </div>
   
