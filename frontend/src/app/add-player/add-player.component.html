@@ -76,7 +76,9 @@
             <option value="alert-secondary">Unavailable</option>
           </select>
         </td>
+        
         <td><a (click)="deletePlayer(playerOnTeam)" class="fa fa-trash"></a></td>
+
         <td *ngIf="!update"><a ng-click="deletePlayer(playerOnTeam)" class="fa fa-ban"></a></td>
         <td *ngIf="update"><a ng-click="deletePlayer(playerOnTeam)" class="fa fa-wrench"></a></td>
       </tr>
