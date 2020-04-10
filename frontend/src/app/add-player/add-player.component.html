@@ -1,31 +1,45 @@
 
 <h1>Build Your Own Basketball Team </h1>
 
-<form (submit)="addPlayer($event)">
-  <label class="">Player's Name</label>
-  <input type="text" [(ngModel)]="inputName" name="inputName">
+<div class="container">
+  <form (submit)="addPlayer($event)">
+    <div class="row">
+      <div class="col-3">
+        <label class="">Player's Name</label>
+        <input type="text" [(ngModel)]="inputName" name="inputName">
+      </div>
 
-  <label class="">Country</label>
-  <select [(ngModel)]="inputCountry" name="inputCountry">
-    <option *ngFor="let country of playesCountryOptions" value="{{ country.acronym }}">{{ country.name }}</option>
-  </select>
+      <div class="col-3">    
+        <label class="">Country</label>
+        <select [(ngModel)]="inputCountry" name="inputCountry">
+          <option *ngFor="let country of playesCountryOptions" value="{{ country.acronym }}">{{ country.name }}</option>
+        </select>
+      </div>
 
-  <label class="">Position</label>
-  <select [(ngModel)]="inputPosition" name="inputPosition">
-    <option *ngFor="let position of playesPositionOptions" value="{{ position.acronym }}">{{ position.name }}</option>
-  </select>
+      <div class="col-2">
+        <label class="">Position</label>
+        <select [(ngModel)]="inputPosition" name="inputPosition">
+          <option *ngFor="let position of playesPositionOptions" value="{{ position.acronym }}">{{ position.name }}</option>
+        </select>
+      </div>
 
-  <label class="">Role</label>
-  <select [(ngModel)]="inputRole" name="inputRole">
-    <option *ngFor="let role of playesRoleOptions" value="{{ role }}">{{ role }}</option>
-  </select>
+      <div class="col-2">
+        <label class="">Role</label>
+        <select [(ngModel)]="inputRole" name="inputRole">
+          <option *ngFor="let role of playesRoleOptions" value="{{ role }}">{{ role }}</option>
+        </select>
+      </div>
 
-  <button type="submit">Sent</button>
-</form>
+      <div class="col-2">
+        <button type="submit">Sent</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<p>A regular basketball team has 1 captain 4 starters and 7 reservers</p>
 
 <div class="table-responsive">
-
-  <p>A regular basketball team has 1 captain 4 starters and 7 reservers</p>
 
   <table *ngIf="!update" class="table">
     <tr>
@@ -110,13 +124,13 @@
           </td>
           
           <td><a (click)="deletePlayer(editPlayer.id)" class="fa fa-trash"></a></td>
-          <td><button type="submit" class="fa fa-location-arrow"></button></td>
+          <td><button id="edit-button" type="submit"><i class="fa fa-location-arrow"></i></button></td>
         </tr>
       </table>
     </form>
-    <a (click)="updateArea(editPlayer)" class="fa fa-arrow-left">Return</a>
+    <button id="return-button" (click)="updateArea(editPlayer)"><i  class="fa fa-arrow-left"> Return</i></button>
   </div>
 
-  <div>. </div>
+  <div><span> .</span> </div>
   
 </div>
