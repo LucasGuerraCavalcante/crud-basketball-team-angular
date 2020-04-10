@@ -42,6 +42,7 @@
 <div class="table-responsive">
 
   <table *ngIf="!update" class="table">
+   
     <tr>
       <th>Name</th>
       <th>Country</th>
@@ -52,7 +53,7 @@
       <th>Edit</th>
     </tr>
 
-    <tr *ngFor="let playerOnTeam of players; let i=index" class="{{ status.value }}">
+    <tr *ngFor="let playerOnTeam of players; let i=index" class="">
       <td> 
         <span>{{ playerOnTeam.name }}</span>
       </td>
@@ -66,11 +67,7 @@
         <span>{{ playerOnTeam.role }}</span>
       </td>
       <td> 
-        <select #status (change)='0'>
-          <option value="alert-success">Active</option>
-          <option value="alert-danger">Injured</option>
-          <option value="alert-secondary">Unavailable</option>
-        </select>
+        <span>{{ playerOnTeam.status }}</span>
       </td>
       
       <td><a (click)="deletePlayer(playerOnTeam.id)" class="fa fa-trash"></a></td>
@@ -93,7 +90,7 @@
           <th>Submit</th>
         </tr>
 
-        <tr class="{{ status.value }}">
+        <tr class="">
           <td> 
             <input type="text" value="{{ updateName }}" [(ngModel)]="updateName" name="updateName">
           </td>
@@ -116,10 +113,9 @@
             </select>
           </td>
           <td> 
-            <select #status (change)='0' [(ngModel)]="updateStatus" name="updateStatus">
-              <option value="alert-success">Active</option>
-              <option value="alert-danger">Injured</option>
-              <option value="alert-secondary">Unavailable</option>
+            <select [(ngModel)]="updateStatus" name="updateStatus">
+              <option value="{{ updateStatus }}" disabled selected>{{ updateStatus }}</option> 
+              <option *ngFor="let status of playesStatusOptions" value="{{ status }}">{{ status }}</option>
             </select>
           </td>
           
@@ -130,7 +126,7 @@
     </form>
     <button id="return-button" (click)="updateArea(editPlayer)"><i  class="fa fa-arrow-left"> Return</i></button>
   </div>
-
-  <div><span> .</span> </div>
   
 </div>
+
+<div><span>. </span> </div>

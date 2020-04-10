@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ViewChild } from '@angular/core'
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+
 import { PlayerServiceService } from '../player-service.service';
 
 @Component({
@@ -128,7 +132,7 @@ export class AddPlayerComponent implements OnInit {
       status: this.updateStatus
     };
 
-    console.log(this.editPlayer)
+    // console.log(this.editPlayer)
 
     this.playerService.putPlayer(this.editPlayer)
       .subscribe(() => {
