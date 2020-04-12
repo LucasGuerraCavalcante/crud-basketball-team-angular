@@ -6,7 +6,13 @@ module.exports = {
         const sql = 'SELECT * FROM team;'; 
 
         connection.query(sql, function (err, result) {
-            if (err) throw err;
+            if (err) {
+                resp.statusMessage = { 
+                    "devMessage":err,
+                    "clientMessage":"Unexpected error, try again latter",
+                };   
+                resp.send(resp.statusMessage).end();
+            }
             return resp.json(result);
         });
     },
@@ -24,7 +30,13 @@ module.exports = {
     
             connection.query(sql, function (err, result) {
     
-                if (err) throw err;
+                if (err) {
+                    resp.statusMessage = { 
+                        "devMessage":err,
+                        "clientMessage":"Unexpected error, try again latter",
+                    };   
+                    resp.send(resp.statusMessage).end();
+                }
 
                 resp.statusMessage = { 
                     "devMessage":"201: Created",
@@ -52,7 +64,13 @@ module.exports = {
 
             connection.query(sql, function (err, result) {
 
-                if (err) throw err;
+                if (err) {
+                    resp.statusMessage = { 
+                        "devMessage":err,
+                        "clientMessage":"Unexpected error, try again latter",
+                    };   
+                    resp.send(resp.statusMessage).end();
+                }
 
                 resp.statusMessage = { 
                     "devMessage":"200: OK",
@@ -87,7 +105,13 @@ module.exports = {
     
             connection.query(sql, function (err, result) {
     
-                if (err) throw err;
+                if (err) {
+                    resp.statusMessage = { 
+                        "devMessage":err,
+                        "clientMessage":"Unexpected error, try again latter",
+                    };   
+                    resp.send(resp.statusMessage).end();
+                }
 
                 resp.statusMessage = { 
                     "devMessage":"200: OK",

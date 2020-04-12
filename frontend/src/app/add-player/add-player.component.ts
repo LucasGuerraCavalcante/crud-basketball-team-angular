@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Http, Response } from '@angular/http';
 import { ViewChild } from '@angular/core'
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -61,7 +62,7 @@ export class AddPlayerComponent implements OnInit {
 
   playesStatusOptions: any[] = [ "Active", "Injured", "Unavailable" ];
 
-  constructor(private playerService: PlayerServiceService,) { 
+  constructor(private playerService: PlayerServiceService) { 
     this.players = [];
   };
 
@@ -102,8 +103,10 @@ export class AddPlayerComponent implements OnInit {
     // console.log(player)
 
     this.playerService.deletePlayer(id)
-      .subscribe(() => {
+      .subscribe((res) => {
         this.update = false;
+
+        // let resJSON = res.sta;
         this.show();
   },
     errorResponse => {
