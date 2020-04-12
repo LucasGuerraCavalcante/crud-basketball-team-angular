@@ -26,13 +26,21 @@ module.exports = {
     
                 if (err) throw err;
 
+                resp.statusMessage = { 
+                    "devMessage":"201: Created",
+                    "clientMessage":"A new player has joined the team",
+                 };
                 resp.status(201);
-                return resp.json({ "response":"A new player has joined the team" });
+                resp.send(resp.statusMessage).end();
             });
         } 
         else {
-            resp.status(400);
-            return resp.json({ "error":"Null fields are not accepted" });
+            resp.statusMessage = { 
+                "devMessage":"400: Bad Request",
+                "clientMessage":"Null fields are not accepted",
+             };
+            resp.status(400)
+            resp.send(resp.statusMessage).end();
         }
     }, 
 
@@ -46,13 +54,21 @@ module.exports = {
 
                 if (err) throw err;
 
+                resp.statusMessage = { 
+                    "devMessage":"200: OK",
+                    "clientMessage":"Player deleted",
+                 };
                 resp.status(200);
-                return resp.json({ "response":"Player deleted" });
+                resp.send(resp.statusMessage).end();
             });
         }
         else {
-            resp.status(400);
-            return resp.json({ "error":"Missing id" });
+            resp.statusMessage = { 
+                "devMessage":"400: Bad Request",
+                "clientMessage":"Missing id",
+             };
+            resp.status(400)
+            resp.send(resp.statusMessage).end();
         }
     },
 
@@ -73,13 +89,21 @@ module.exports = {
     
                 if (err) throw err;
 
+                resp.statusMessage = { 
+                    "devMessage":"200: OK",
+                    "clientMessage":"Player edited",
+                 };
                 resp.status(200);
-                return resp.json({ "response":"Player edited" });
+                resp.send(resp.statusMessage).end();
             });
         }  
         else {
-            resp.status(400);
-            return resp.json({ "error":"Null fields are not accepted" });
+            resp.statusMessage = { 
+                "devMessage":"400: Bad Request",
+                "clientMessage":"Null fields are not accepted",
+             };
+            resp.status(400)
+            resp.send(resp.statusMessage).end();
         }
     },
 
