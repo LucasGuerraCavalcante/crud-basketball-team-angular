@@ -1,9 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Http, Response } from '@angular/http';
-import { ViewChild } from '@angular/core'
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
-
 import { PlayerServiceService } from '../player-service.service';
 
 @Component({
@@ -31,6 +26,8 @@ export class AddPlayerComponent implements OnInit {
     role: string,
     status: string
   };
+
+  responseMessage: any;
 
   players: any = [];
 
@@ -67,7 +64,6 @@ export class AddPlayerComponent implements OnInit {
   };
 
   show() {
-    // console.log(this.players)
     this.playerService.getAllPlayers()
       .subscribe(response => this.players = <any> response)
   };
@@ -81,44 +77,20 @@ export class AddPlayerComponent implements OnInit {
     };
 
     this.playerService.insertPlayer(this.player)
-      .subscribe(() => {
+      .subscribe((response) => {
+        this.responseMessage = <any> response;     
         this.show();
         event.preventDefault();
-    },
-      errorResponse => {
-
-        let msg = 'Unexpected Error';
-
-        if(errorResponse.error.message) {
-          msg = errorResponse.error.message;
-        }
-
-        console.log(msg)
-
-      });
+    });
   };
 
   deletePlayer(id) {
 
-    // console.log(player)
-
     this.playerService.deletePlayer(id)
-      .subscribe((res) => {
+      .subscribe((response) => {
+        this.responseMessage = <any> response;
         this.update = false;
-
-        // let resJSON = res.sta;
         this.show();
-  },
-    errorResponse => {
-
-      let msg = 'Unexpected Error';
-
-      if(errorResponse.error.message) {
-        msg = errorResponse.error.message;
-      }
-
-      console.log(msg)
-
     });
   };
 
@@ -138,21 +110,11 @@ export class AddPlayerComponent implements OnInit {
     // console.log(this.editPlayer)
 
     this.playerService.putPlayer(this.editPlayer)
-      .subscribe(() => {
+      .subscribe((response) => {
+        this.responseMessage = <any> response;
         this.update = false;
         this.show();
         event.preventDefault();
-  },
-    errorResponse => {
-
-      let msg = 'Unexpected Error';
-
-      if(errorResponse.error.message) {
-        msg = errorResponse.error.message;
-      }
-
-      console.log(msg)
-
     });
   };
 
@@ -175,6 +137,7 @@ export class AddPlayerComponent implements OnInit {
   ngOnInit() {
     this.show();
     this.update = false;
+    this.responseMessage = { clientMessage: "" }
   };
 
 }
