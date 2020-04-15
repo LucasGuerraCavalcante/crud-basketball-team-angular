@@ -85,7 +85,7 @@
         <span>{{ playerOnTeam.status }}</span>
       </td>
       
-      <td><a (click)="deletePlayer(playerOnTeam.id)" class="fa fa-trash"></a></td>
+      <td><a (click)="deletePlayer(playerOnTeam)" class="fa fa-trash"></a></td>
 
       <td><a (click)="updateArea(playerOnTeam)" class="fa fa-pencil"></a></td>
     </tr>
@@ -134,7 +134,7 @@
             </select>
           </td>
           
-          <td><a (click)="deletePlayer(editPlayer.id)" class="fa fa-trash"></a></td>
+          <td><a (click)="deletePlayer(editPlayer)" class="fa fa-trash"></a></td>
           <td><button id="edit-button" type="submit"><i class="fa fa-location-arrow"></i></button></td>
         </tr>
       </table>

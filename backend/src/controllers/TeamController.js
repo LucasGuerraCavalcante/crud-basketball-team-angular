@@ -40,7 +40,7 @@ module.exports = {
 
                 resp.statusMessage = { 
                     "devMessage":"201: Created",
-                    "clientMessage":"A new player has joined the team",
+                    "clientMessage":`${name} has joined the team`,
                  };
                 resp.status(201);
                 resp.send(resp.statusMessage).end();
@@ -58,7 +58,8 @@ module.exports = {
 
     delete: (req, resp) =>  {
 
-        if (req.body.id) {     
+        if (req.body.id) {  
+            const name = req.body.name;
             const id = req.body.id;
             const sql = `DELETE FROM team WHERE id = ${id} LIMIT 1;`;  
 
@@ -74,7 +75,7 @@ module.exports = {
 
                 resp.statusMessage = { 
                     "devMessage":"200: OK",
-                    "clientMessage":"Player deleted",
+                    "clientMessage":`${name} has left the team`,
                  };
                 resp.status(200);
                 resp.send(resp.statusMessage).end();
@@ -115,7 +116,7 @@ module.exports = {
 
                 resp.statusMessage = { 
                     "devMessage":"200: OK",
-                    "clientMessage":"Player edited",
+                    "clientMessage":`${name} was edited`,
                  };
                 resp.status(200);
                 resp.send(resp.statusMessage).end();

@@ -23,7 +23,7 @@ export class PlayerServiceService {
     return this.http.put('http://localhost:3333/', player);
   }
 
-  deletePlayer(id: any) {
+  deletePlayer(player: any) {
     // console.log(player)
 
     const options = {
@@ -31,7 +31,8 @@ export class PlayerServiceService {
         'Content-Type': 'application/json',
       }),
       body: {
-        id: id,
+        id: player.id,
+        name: player.name,
       },
     };
 
