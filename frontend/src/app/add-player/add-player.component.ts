@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { catchError } from 'rxjs/operators'; 
+import { throwError } from 'rxjs';
+
 import { PlayerServiceService } from '../player-service.service';
+
+
 
 @Component({
   selector: 'app-add-player',
@@ -28,6 +33,7 @@ export class AddPlayerComponent implements OnInit {
   };
 
   responseMessage: any;
+  statusColor: string;
 
   players: any = [];
 
@@ -77,18 +83,34 @@ export class AddPlayerComponent implements OnInit {
     };
 
     this.playerService.insertPlayer(this.player)
+      .pipe(
+        catchError(err => {
+          this.responseMessage = <any> err.error;  
+          this.statusColor = "errorColor";
+          return throwError(err);  
+        })
+      )
       .subscribe((response) => {
         this.responseMessage = <any> response;     
+        this.statusColor = "okColor";
         this.show();
         event.preventDefault();
-    });
+      })
   };
 
   deletePlayer(id) {
 
     this.playerService.deletePlayer(id)
+      .pipe(
+        catchError(err => {
+          this.responseMessage = <any> err.error;  
+          this.statusColor = "errorColor";
+          return throwError(err);  
+        })
+      )
       .subscribe((response) => {
         this.responseMessage = <any> response;
+        this.statusColor = "okColor";
         this.update = false;
         this.show();
     });
@@ -110,8 +132,16 @@ export class AddPlayerComponent implements OnInit {
     // console.log(this.editPlayer)
 
     this.playerService.putPlayer(this.editPlayer)
+      .pipe(
+        catchError(err => {
+          this.responseMessage = <any> err.error;  
+          this.statusColor = "errorColor";
+          return throwError(err);  
+        })
+      )
       .subscribe((response) => {
         this.responseMessage = <any> response;
+        this.statusColor = "okColor";
         this.update = false;
         this.show();
         event.preventDefault();
@@ -137,7 +167,7 @@ export class AddPlayerComponent implements OnInit {
   ngOnInit() {
     this.show();
     this.update = false;
-    this.responseMessage = { clientMessage: "" }
+    this.responseMessage = { clientMessage: "Add a new player" }
   };
 
 }

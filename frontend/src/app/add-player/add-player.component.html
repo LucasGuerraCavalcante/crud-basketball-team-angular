@@ -35,11 +35,26 @@
       </div>
     </div>
   </form>
+
+  <div class="row" style="margin-top: 0.5rem;">
+    <input class="status-message" id="{{ statusColor }}" 
+    disabled placeholder="{{ responseMessage.clientMessage }}">
+  </div>
+
+  <div class="row" style="margin-top: 0.5rem;">
+    <div class="col-4">
+      <button type="submit">Clear</button>
+    </div>
+    <div class="col-4">
+      <button type="submit">Statistics</button>
+    </div>
+    <div class="col-4">
+      <button type="submit">Reorder</button>
+    </div>
+  </div>
 </div>
 
-<p>A regular basketball team has 1 captain 4 starters and 7 reservers {{ responseMessage.clientMessage }}</p>
-
-<div class="table-responsive">
+<div class="table-responsive" style="margin-top: 0.5rem;">
 
   <table *ngIf="!update" class="table">
    
@@ -129,4 +144,6 @@
   
 </div>
 
-<div><span>. </span> </div>
+<div>
+  <p>A regular basketball team has 1 captain 4 starters and 7 reservers</p>
+</div>
