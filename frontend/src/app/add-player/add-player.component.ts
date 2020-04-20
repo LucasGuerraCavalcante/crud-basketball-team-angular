@@ -3,9 +3,6 @@ import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
 import { PlayerServiceService } from '../player-service.service';
-
-
-
 @Component({
   selector: 'app-add-player',
   templateUrl: './add-player.component.html',
@@ -14,8 +11,8 @@ import { PlayerServiceService } from '../player-service.service';
 export class AddPlayerComponent implements OnInit {
 
   inputName: string; inputCountry: string;  inputPosition: string;  inputRole: string;
-  id: number; updateName: string; updateCountry: string;  updatePosition: string;  updateRole: string; updateStatus: string;
 
+  // new player input object
   player: {
     name: string,  
     position: string,
@@ -23,6 +20,9 @@ export class AddPlayerComponent implements OnInit {
     role: string
   };
 
+  id: number; updateName: string; updateCountry: string;  updatePosition: string;  updateRole: string; updateStatus: string;
+
+  // update player input object
   editPlayer: {
     id: number,
     name: string,  
@@ -34,10 +34,10 @@ export class AddPlayerComponent implements OnInit {
 
   responseMessage: any;
   statusColor: string;
-
-  players: any = [];
-
   update: boolean;
+
+  // team list
+  players: any = [];
 
   playesCountryOptions: any[] = [
     {"name": "United States","acronym": "us"},
@@ -69,6 +69,7 @@ export class AddPlayerComponent implements OnInit {
     this.players = [];
   };
 
+  // get all players
   show() {
     this.playerService.getAllPlayers()
       .subscribe(response => this.players = <any> response)
@@ -99,7 +100,6 @@ export class AddPlayerComponent implements OnInit {
   };
 
   deletePlayer(id) {
-
     this.playerService.deletePlayer(id)
       .pipe(
         catchError(err => {
@@ -117,7 +117,6 @@ export class AddPlayerComponent implements OnInit {
   };
 
   updatePlayer(event) {
-
     this.id = this.editPlayer.id
 
     this.editPlayer = {
@@ -128,8 +127,6 @@ export class AddPlayerComponent implements OnInit {
       role: this.updateRole,
       status: this.updateStatus
     };
-
-    // console.log(this.editPlayer)
 
     this.playerService.putPlayer(this.editPlayer)
       .pipe(
@@ -148,6 +145,7 @@ export class AddPlayerComponent implements OnInit {
     });
   };
 
+  // render and send to the update area
   updateArea(player){
     if (this.update == true){
       this.update = false;
@@ -160,14 +158,13 @@ export class AddPlayerComponent implements OnInit {
       this.updateCountry = this.editPlayer.country 
       this.updateRole = this.editPlayer.role 
       this.updateStatus = this.editPlayer.status 
-      // console.log(this.editPlayer)
     }
   };
 
   ngOnInit() {
     this.show();
     this.update = false;
-    this.responseMessage = { clientMessage: "Add a new player" }
+    this.responseMessage = { clientMessage: "Fill the form to add a new player" }
   };
 
 }
