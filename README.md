@@ -2,12 +2,12 @@
 
 ## Backend Folder - API server (Node.js, Express)
 
-npm install
+npm install  
 npm start 
 
 ## Frontend Folder - UI (Angular)
 
-npm install
+npm install  
 ng serve
 
 ## Create, Update and Delete
