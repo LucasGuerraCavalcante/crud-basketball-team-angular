@@ -139,8 +139,9 @@ module.exports = {
                  };
                 resp.status(200);
                 resp.send(resp.statusMessage).end();
-            });
-        }  
+            });         
+        } 
+         
         else {
             resp.statusMessage = { 
                 "devMessage":"400: Bad Request",

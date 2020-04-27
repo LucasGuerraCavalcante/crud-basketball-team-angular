@@ -10,7 +10,7 @@ module.exports = {
 
             if (err){ 
                 throw err;
-              }
+            }
 
             if (!Object.keys(result).length) {
                 return callback(true)
